@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .task {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="{{ url_for('add_task') }}" method="POST">
+
+        <input type="text" name="title" placeholder="new task" required>
+        <button type="submit">add</button>
+    </form>
+    <div>
+        {% for task in tasks %}
+            <div class="task {% if task.completed %}completed{% endif %}">
+                {{ task.title }}
+                <a href="/complete/{{ loop.index0 }}"><button>✔</button></a>
+                <a href="/delete/{{ loop.index0 }}"><button>❌</button></a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
